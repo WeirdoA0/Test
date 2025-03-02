@@ -38,6 +38,14 @@ extension ReviewsViewModel {
         reviewsProvider.getReviews(offset: state.offset, completion: gotReviews)
     }
 
+    /// Удаляет все данные 
+    func reset() {
+        state.items.removeAll()
+        state.offset = 0
+        state.shouldLoad = true
+        onStateChange?(state)
+    }
+    
 }
 
 // MARK: - Private
@@ -49,7 +57,7 @@ private extension ReviewsViewModel {
         do {
             let data = try result.get()
             let reviews = try decoder.decode(Reviews.self, from: data)
-            state.items += reviews.items.map(makeReviewItem)
+            state.items += Array(reviews.items.map(makeReviewItem)[0...min(reviews.count - state.offset - 1 , state.limit-1)])
             state.offset += state.limit
             state.shouldLoad = state.offset < reviews.count
         } catch {
@@ -79,12 +87,17 @@ private extension ReviewsViewModel {
     typealias ReviewItem = ReviewCellConfig
 
     func makeReviewItem(_ review: Review) -> ReviewItem {
+        let userName = (review.userFirstName + " " + review.userLastName).attributed(font: .username)
         let reviewText = review.text.attributed(font: .text)
         let created = review.created.attributed(font: .created, color: .created)
         let item = ReviewItem(
+            userName: userName,
             reviewText: reviewText,
+            reviewRating: review.rating,
             created: created,
-            onTapShowMore: showMoreReview
+            imageURLs: review.stringURLs,
+            onTapShowMore: showMoreReview,
+            ratingRender: ratingRenderer
         )
         return item
     }
@@ -94,16 +107,36 @@ private extension ReviewsViewModel {
 // MARK: - UITableViewDataSource
 
 extension ReviewsViewModel: UITableViewDataSource {
-
+    
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        state.items.count
+        switch section {
+        case 0:
+            state.items.count
+        case 1:
+            1
+        default:
+            0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let config = state.items[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: config.reuseId, for: indexPath)
-        config.update(cell: cell)
-        return cell
+        if indexPath.section == 0 {
+            let config = state.items[indexPath.row]
+            let cell = tableView.dequeueReusableCell(withIdentifier: config.reuseId, for: indexPath)
+            config.update(cell: cell)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.textLabel?.text = "\(tableView.numberOfRows(inSection: 0)) отзывов"
+            cell.textLabel?.textAlignment = .center
+            cell.textLabel?.textColor = .systemGray
+            return cell
+        }
     }
 
 }
@@ -111,9 +144,17 @@ extension ReviewsViewModel: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension ReviewsViewModel: UITableViewDelegate {
-
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        state.items[indexPath.row].height(with: tableView.bounds.size)
+        switch indexPath.section {
+        case 0:
+            state.items[indexPath.row].height(with: tableView.bounds.size)
+        case 1:
+            50
+        default:
+            0
+        }
     }
 
     /// Метод дозапрашивает отзывы, если до конца списка отзывов осталось два с половиной экрана по высоте.

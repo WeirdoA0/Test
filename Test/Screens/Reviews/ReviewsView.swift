@@ -3,6 +3,8 @@ import UIKit
 final class ReviewsView: UIView {
 
     let tableView = UITableView()
+    
+    var activityIndicator: UIActivityIndicatorView? = UIActivityIndicatorView(style: .large)
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -16,8 +18,9 @@ final class ReviewsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         tableView.frame = bounds.inset(by: safeAreaInsets)
+        activityIndicator?.startAnimating()
+        activityIndicator?.frame = frame
     }
-
 }
 
 // MARK: - Private
@@ -27,6 +30,9 @@ private extension ReviewsView {
     func setupView() {
         backgroundColor = .systemBackground
         setupTableView()
+        if activityIndicator != nil {
+            addSubview(activityIndicator!)
+        }
     }
 
     func setupTableView() {
@@ -34,6 +40,7 @@ private extension ReviewsView {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.register(ReviewCell.self, forCellReuseIdentifier: ReviewCellConfig.reuseId)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
 
 }

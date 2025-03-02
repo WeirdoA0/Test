@@ -12,6 +12,7 @@
             "first_name": "Екатерина",
             "last_name": "Иванова",
             "rating": 3,
+            "photo_urls": ["https://i.pinimg.com/736x/bf/8a/b6/bf8ab60d754d27920f3e0c222a814bac.jpg"],
             "text": "Скользские ужасно.",
             "created": "12 минут назад"
         },
@@ -19,6 +20,7 @@
             "first_name": "Евгения",
             "last_name": "Петрова",
             "rating": 4,
+            "photo_urls": ["https://i.pinimg.com/736x/bf/8a/b6/bf8ab60d754d27920f3e0c222a814bac.jpg", "https://images.stockcake.com/public/6/f/6/6f6a0565-96eb-4dda-8c8f-9c0d9a8afdf0_large/vivid-sunset-sky-stockcake.jpg"],
             "text": "Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "35 минут назад"
         },
@@ -26,6 +28,7 @@
             "first_name": "Илья",
             "last_name": "Петров",
             "rating": 2,
+            "photo_urls": ["https://images.stockcake.com/public/6/f/6/6f6a0565-96eb-4dda-8c8f-9c0d9a8afdf0_large/vivid-sunset-sky-stockcake.jpg"],
             "text": "Понравилось отношение - несмотря на то, что заказ был выполнен не идеально, продавец был очень любезен и шёл... Прошла по снегу 30 метров, 5 раз упала. Спасибо мужу, поддерживал. Возврат, к сожалению.",
             "created": "минуту назад"
         },
@@ -40,6 +43,7 @@
             "first_name": "Олег",
             "last_name": "Николаев",
             "rating": 1,
+            "photo_urls": ["https://i.pinimg.com/736x/bf/8a/b6/bf8ab60d754d27920f3e0c222a814bac.jpg", "https://images.stockcake.com/public/6/f/6/6f6a0565-96eb-4dda-8c8f-9c0d9a8afdf0_large/vivid-sunset-sky-stockcake.jpg","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmtty4CClnSpo0hfGDIyOitnFTm169sUf4kQ&s","https://media.istockphoto.com/id/1419410282/photo/silent-forest-in-spring-with-beautiful-bright-sun-rays.jpg?s=612x612&w=0&k=20&c=UHeb1pGOw6ozr6utsenXHhV19vW6oiPIxDqhKCS2Llk=","https://thumbs.dreamstime.com/b/close-up-view-saturn-s-rings-illuminated-vibrant-cosmic-nebula-deep-space-striking-depiction-reveals-intricate-335492966.jpg"],
             "text": "Ребёнок жалуется, что очень скользские. Пока шла до школы...",
             "created": "15 минут назад"
         },

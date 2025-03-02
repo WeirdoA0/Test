@@ -66,6 +66,13 @@ extension RatingRenderer {
     func ratingImage(_ rating: Int) -> UIImage {
         images[rating] ?? drawRatingImageAndCache(rating)
     }
+    
+    func imageSize() -> CGSize {
+        CGSize(
+            width: config.starImage.size.width * 5 + config.spacing * 4,
+            height: config.starImage.size.height
+        )
+    }
 
 }
 
